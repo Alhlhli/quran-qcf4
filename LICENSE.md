@@ -33,6 +33,7 @@ This MIT license applies to the following files and folders:
 - `index.json` — chapter metadata index
 - `verses.json` — verse lookup index
 - `font-map.json` — page-to-font mapping
+- `qbsml.json` — decoded QBSML surah/juz-header glyph set
 
 ---
 

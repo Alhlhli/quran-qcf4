@@ -1,6 +1,6 @@
 {
   "name": "quran-qcf4",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "Developer-friendly Quran database using QCF v4 (King Fahd Complex Font) with Hafs recitation — includes fonts, page JSON, verse index, and font map.",
   "keywords": [
     "quran",
@@ -32,6 +32,7 @@
     "index.json",
     "verses.json",
     "font-map.json",
+    "qbsml.json",
     "README.md"
   ],
   "main": "index.json",
@@ -39,6 +40,7 @@
     ".": "./index.json",
     "./verses": "./verses.json",
     "./font-map": "./font-map.json",
+    "./qbsml": "./qbsml.json",
     "./pages/*": "./pages/*.json",
     "./fonts/*": "./fonts/*",
     "./fonts-woff2/*": "./fonts-woff2/*"

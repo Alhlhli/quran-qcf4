@@ -6,6 +6,8 @@
 
 > **[▶ Live Demo](https://mohamadhajjrabee.github.io/quran-qcf4/demo.html)** · Renders any Mushaf page in the browser using QCF4 fonts via CDN.
 
+> **[🔤 QBSML Glyph Viewer](https://mohamadhajjrabee.github.io/quran-qcf4/qbsml.html)** · Browse every decoded surah/juz header and ornament glyph from the QBSML font.
+
 A developer-friendly Quran database using **QCF v4** (Quran Complex Font, version 4) glyph rendering for the **Hafs** recitation.
 
 ## About QCF4
@@ -44,7 +46,8 @@ Font version by **Ahmad ElGharib** — [Telegram Channel](https://t.me/quranfont
 │   └── QCF4_QBSML.woff2
 ├── index.json      # Master index with chapter metadata
 ├── verses.json     # Verse-key → page/line lookup index
-└── font-map.json   # Page number → font name mapping
+├── font-map.json   # Page number → font name mapping
+└── qbsml.json      # Decoded glyph set for the QBSML surah/juz-header font
 ```
 
 ## Page JSON Schema
@@ -145,6 +148,75 @@ Maps each page number to its font name:
 }
 ```
 
+## QBSML Glyph Set (`qbsml.json`)
+
+`QCF4_QBSML.ttf` is a second, small font (separate from the 47 `QCF4_Hafs_NN`
+page fonts) used only for surah headers, juz' headers, the Bismillah, and
+opening-page ornaments — the same font referenced by `surah_header` and
+`bismillah` words in the page JSON (see [Word Types](#word-types) above).
+
+`qbsml.json` documents every non-empty glyph in that font: which Unicode PUA
+code point it lives at, and what it renders (a surah name, a juz' label, a
+Bismillah word-part, etc). It's most useful if you want to render a surah or
+juz' header standalone, without loading a full page.
+
+```json
+{
+  "font": "QCF4_QBSML",
+  "description": "Deciphered glyph sets in the QCF4 Bismillah/surah-header font (QBSML)...",
+  "total_glyphs_in_font": 2564,
+  "non_empty_glyphs_investigated": 532,
+  "sets": [
+    {
+      "name": "surah_headers_style_a",
+      "label": "Surah name headers — Style A (spaced)",
+      "codepoint_range": "0xF100-0xF171",
+      "count": 114,
+      "entries": [
+        {
+          "sura": 1,
+          "name_arabic": "الفاتحة",
+          "name_en": "Al-Fatihah",
+          "codepoint": 61696,
+          "hex": "F100",
+          "char": "\uf100",
+          "glyph_name": "glyph4",
+          "advance_width": 7665,
+          "bbox": [-3, -806, 7667, 1414]
+        }
+      ]
+    }
+  ]
+}
+```
+
+There are 7 sets in total:
+
+| Set | Count | Contents |
+|---|---|---|
+| `surah_headers_style_a` | 114 | One glyph per surah name, normally-kerned |
+| `surah_headers_style_a_merged` | 98 | Short surah names sharing a glyph, Style A |
+| `juz_headers_style_a` | 30 | One glyph per juz' (para) label, Style A |
+| `surah_headers_style_b` | 114 | Same 114 surah names, tighter/compact kerning |
+| `surah_headers_style_b_merged` | 98 | Short surah names sharing a glyph, Style B |
+| `juz_headers_style_b` | 30 | One glyph per juz' label, Style B |
+| `opening_matter_and_ornaments` | 48 | Bismillah word-parts, Isti'adhah, and decorative ornaments |
+
+Style A and Style B are two complete, interchangeable renderings of the same
+114 surah names / 30 juz' labels — Style A uses normal letter spacing, Style
+B is tighter/more compact. Corresponding Style B glyphs sit exactly `0xF8`
+code points above their Style A counterpart (e.g. surah 1 Style A is
+`0xF100`, Style B is `0xF1F8`), so you can compute one from the other without
+a lookup table if you need to.
+
+The font has no GSUB/ligature table — every code point maps straight to one
+precomposed glyph, so no OpenType shaping engine is required to render these
+correctly; a plain `font-family` + character is enough.
+
+Render any entry the same way you'd render a page word — set
+`font-family: "QCF4_QBSML"` and write out `String.fromCodePoint(entry.codepoint)`
+(or the `char` field directly).
+
 ## How to Render
 
 ### 1. Load the Font
@@ -238,6 +310,7 @@ Contains metadata for all 114 chapters:
 
 - **QCF4 Fonts**: Madinah Mushaf 1441 AH, calligraphy by **Uthman Taha**, produced by the **King Fahd Quran Complex** (مُجمّع الملك فهد لطباعة المصحف الشريف). QCF4 font version by **Ahmad ElGharib** — [Telegram Channel](https://t.me/quranfont)
 - **Chapter metadata**: Derived from [Quran.com](https://quran.com) open data
+- **QBSML glyph decoding** (`qbsml.json`, `qbsml.html`): Contributed by [b-acksla-sh](https://github.com/ b-acksla-sh)
 
 ## License
 
