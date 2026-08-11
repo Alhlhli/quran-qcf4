@@ -310,7 +310,7 @@ Contains metadata for all 114 chapters:
 
 - **QCF4 Fonts**: Madinah Mushaf 1441 AH, calligraphy by **Uthman Taha**, produced by the **King Fahd Quran Complex** (مُجمّع الملك فهد لطباعة المصحف الشريف). QCF4 font version by **Ahmad ElGharib** — [Telegram Channel](https://t.me/quranfont)
 - **Chapter metadata**: Derived from [Quran.com](https://quran.com) open data
-- **QBSML glyph decoding** (`qbsml.json`, `qbsml.html`): Contributed by [b-acksla-sh](https://github.com/ b-acksla-sh)
+- **QBSML glyph decoding** (`qbsml.json`, `qbsml.html`): Contributed by [b-acksla-sh](https://github.com/b-acksla-sh)
 
 ## License
 
